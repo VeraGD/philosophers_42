@@ -23,8 +23,6 @@ void	print_message(char *str, t_philo *philo, int id)
 	pthread_mutex_unlock(philo->mutex_print);
 }
 
-// Checks if the philosopher is dead
-
 int	philosopher_dead(t_philo *philo, size_t t_die)
 {
 	pthread_mutex_lock(philo->mutex_meals);
@@ -35,16 +33,61 @@ int	philosopher_dead(t_philo *philo, size_t t_die)
 	return (0);
 }
 
-// Check if any philo died
-
-int	check_if_dead(t_philo *philos)
+int	check_if_dead(t_philo *philo)
 {
 	int	i;
 
 	i = 0;
-	while (i < philos[0].n_philo)
+	while (i < philo[0].n_philo)
 	{
-		if (philosopher_dead(&philos[i], philos[i].t_die))
+		if (philosopher_dead(&philo[i], philo[i].t_die))
 		{
-			print_message("died", &philos[i], philos[i].id);
-			pthread_mutex_l}
+			print_message("died", &philo[i], philo[i].id);
+			pthread_mutex_lock(philo[0].mutex_die);
+			*philo->die = 1;
+			pthread_mutex_unlock(philo[0].mutex_die);
+			return (1);
+		}
+		i++;
+	}
+	return (0);
+}
+
+int	check_if_all_ate(t_philo *philo)
+{
+	int	i;
+	int	finished_eat;
+
+	i = 0;
+	finished_eat = 0;
+	if (philo[0].n_meals == -1)
+		return (0);
+	while (i < philo[0].n_philo)
+	{
+		pthread_mutex_lock(philo[i].mutex_meals);
+		if (philo[i].meals_counter >= philo[i].n_meals)
+			finished_eat++;
+		pthread_mutex_unlock(philo[i].mutex_meals);
+		i++;
+	}
+	if (finished_eat == philo[0].n_philo)
+	{
+		pthread_mutex_lock(philo[0].mutex_die);
+		*philo->die = 1;
+		pthread_mutex_unlock(philo[0].mutex_die);
+		return (1);
+	}
+	return (0);
+}
+
+// Monitor thread routine
+void	*monitor(void *pointer)
+{
+	t_philo	*philo;
+
+	philo = (t_philo *)pointer;
+	while (1)
+		if (check_if_dead(philo) == 1 || check_if_all_ate(philo) == 1)
+			break ;
+	return (pointer);
+}
