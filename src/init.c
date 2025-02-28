@@ -12,6 +12,7 @@
 
 #include "../include/philosophers.h"
 
+// Initialize the forks of each philo, left and rigth
 void	init_forks_philo(t_philo *philo, pthread_mutex_t *forks, int i)
 {
 	philo->l_fork = &forks[i];
@@ -21,6 +22,7 @@ void	init_forks_philo(t_philo *philo, pthread_mutex_t *forks, int i)
 		philo->r_fork = &forks[i - 1];
 }
 
+// len of a char **
 int	ft_strlen_double(char **string)
 {
 	int	i;
@@ -33,6 +35,7 @@ int	ft_strlen_double(char **string)
 	return (i);
 }
 
+// Initialize the philos structure passed by argument
 void	init_philos(t_philo *philo, t_monitor *monitor, pthread_mutex_t *forks,
 		char **argv)
 {
@@ -63,6 +66,7 @@ void	init_philos(t_philo *philo, t_monitor *monitor, pthread_mutex_t *forks,
 	}
 }
 
+// initialize the forks to use then in the philos structures
 void	init_forks(pthread_mutex_t *forks, int philo_num)
 {
 	int	i;
@@ -76,6 +80,7 @@ void	init_forks(pthread_mutex_t *forks, int philo_num)
 	}
 }
 
+// initialize the program, which control all the philos
 void	init_program(t_monitor *program, t_philo *philos)
 {
 	program->is_dead = 0;

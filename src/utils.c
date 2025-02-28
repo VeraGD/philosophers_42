@@ -12,6 +12,7 @@
 
 #include "../include/philosophers.h"
 
+// obtain the ime since the simulation starts
 size_t	get_time(void)
 {
 	struct timeval	time;
@@ -21,6 +22,7 @@ size_t	get_time(void)
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
+// strlen
 size_t	ft_strlen(const char *str)
 {
 	size_t	i;
@@ -31,6 +33,7 @@ size_t	ft_strlen(const char *str)
 	return (i);
 }
 
+// destroy and free all the mutex
 void	destory_all(char *str, t_monitor *monitor, pthread_mutex_t *forks)
 {
 	int	i;
@@ -51,6 +54,7 @@ void	destory_all(char *str, t_monitor *monitor, pthread_mutex_t *forks)
 	}
 }
 
+// wait 500 mls since the functionn is called
 int	ft_usleep(size_t milliseconds)
 {
 	size_t	start;

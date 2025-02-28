@@ -12,6 +12,7 @@
 
 #include "../include/philosophers.h"
 
+// atoi function
 int	ft_atoi(const char *nptr)
 {
 	int	i;
@@ -39,6 +40,7 @@ int	ft_atoi(const char *nptr)
 	return (r * num);
 }
 
+// obtain the arguments as numbers
 int	*pass_argv_num(int argc, char **argv)
 {
 	int	i;
@@ -58,6 +60,8 @@ int	*pass_argv_num(int argc, char **argv)
 	return (num);
 }
 
+// check the arguments, negative numbers, no more than 200 philos, 
+// it can be 0 if its the opcional argument (number of meals)
 int	check_chars(int *num, int argc)
 {
 	int	i;

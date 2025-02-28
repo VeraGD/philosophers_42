@@ -12,6 +12,9 @@
 
 #include "../include/philosophers.h"
 
+// main function. 
+// initialize the program, initialize all the forks, initialize all the philos,
+// create the threads and run the program
 int	main(int argc, char **argv)
 {
 	int				*num;
@@ -31,6 +34,7 @@ int	main(int argc, char **argv)
 		}
 		else
 			printf("Invalid arguments\n");
+		free(num);
 	}
 	else
 		printf("Invalid number of arguments\n");

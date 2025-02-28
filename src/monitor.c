@@ -12,6 +12,7 @@
 
 #include "../include/philosophers.h"
 
+// print messages using the print mutex
 void	print_message(char *str, t_philo *philo, int id)
 {
 	size_t	time;
@@ -23,6 +24,7 @@ void	print_message(char *str, t_philo *philo, int id)
 	pthread_mutex_unlock(philo->mutex_print);
 }
 
+// check the time each philo has after they start to eat
 int	philosopher_dead(t_philo *philo, size_t t_die)
 {
 	pthread_mutex_lock(philo->mutex_meals);
@@ -33,6 +35,7 @@ int	philosopher_dead(t_philo *philo, size_t t_die)
 	return (0);
 }
 
+// if a philo died, print a message and return 1
 int	check_if_dead(t_philo *philo)
 {
 	int	i;
@@ -53,6 +56,7 @@ int	check_if_dead(t_philo *philo)
 	return (0);
 }
 
+// check if all the philos has eaten all the needed meals
 int	check_if_all_ate(t_philo *philo)
 {
 	int	i;
@@ -80,7 +84,7 @@ int	check_if_all_ate(t_philo *philo)
 	return (0);
 }
 
-// Monitor thread routine
+// check if the hilo died (time) and the number of meals (they finished)
 void	*monitor(void *pointer)
 {
 	t_philo	*philo;

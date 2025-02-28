@@ -12,21 +12,21 @@
 
 #include "../include/philosophers.h"
 
+// think fuction, only print
 void	think(t_philo *philo)
 {
 	print_message("is thinking", philo, philo->id);
 }
 
-// Dream routine funtion
-
+// Sleep function, print and wait the time (specific argument)
 void	dream(t_philo *philo)
 {
 	print_message("is sleeping", philo, philo->id);
 	ft_usleep(philo->t_sleep);
 }
 
-// Eat routine funtion
-
+// Eat function, take the forks, eat, increase meals counter, 
+// save the time in which they start to it (chaeck dead)
 void	eat(t_philo *philo)
 {
 	pthread_mutex_lock(philo->r_fork);
@@ -51,6 +51,7 @@ void	eat(t_philo *philo)
 	pthread_mutex_unlock(philo->r_fork);
 }
 
+// check if the dead flag of philos is on
 int	dead_loop(t_philo *philo)
 {
 	pthread_mutex_lock(philo->mutex_die);
@@ -60,8 +61,8 @@ int	dead_loop(t_philo *philo)
 	return (0);
 }
 
-// Thread routine
-
+// Thread routine, eat, sleep, think.
+// wait if the philo has a pair number
 void	*philo_routine(void *pointer)
 {
 	t_philo	*philo;

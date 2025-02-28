@@ -12,6 +12,8 @@
 
 #include "../include/philosophers.h"
 
+// create all the threads and join them, one for the monitor and one for each
+// philo
 int	thread_create(t_monitor *program, pthread_mutex_t *forks)
 {
 	pthread_t	monitor_t;
